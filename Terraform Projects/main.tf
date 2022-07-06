@@ -12,4 +12,12 @@ resource "aws_subnet" "terraform-subnet-1" {
    cidr_block = "10.0.11.0/24"
    availability_zone = "us-east-1a"
 }
+output "terraform-vpc-id" {
+    value = aws_vpc.terraform-vpc.id
+}
+output "terraform-subnet-id" {
+    value = aws_subnet.terraform-subnet-1.id
+}
+    
 
+  
