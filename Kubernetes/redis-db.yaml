@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+   name: redis-db
+   labels: 
+     app: redis-in-memory
+spec: 
+  selector: 
+     matchLabels:
+       app: redis-in-memory
+  template:
+    metadata:
+       labels:
+         app: redis-in-memory
+    spec: 
+      containers:
+       - name: redis
+         image: redis:alpine
+         ports: 
+         - containerPort: 6379
+         volumeMounts:
+         - name: redis-data
+           mounthPath: /data
+      volumes:
+        - name: redis-data
+          emptyDir: {}    
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: redis-service
+spec: 
+  selector: 
+     app: redis-in-memory
+  ports: 
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379                        
