@@ -1,0 +1,10 @@
+# local terraform provider dir 
+.terraform/*
+.terraform/providers/registry.terraform.io/hashicorp/aws/*
+# tf state files
+*.tfstate
+*.tfstate.*
+
+# tf variable files may include sensitive data
+*.tfvars
+
