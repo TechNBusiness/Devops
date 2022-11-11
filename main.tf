@@ -11,16 +11,17 @@ terraform {
 
 # Configure the Microsoft Azure Provider  
 provider "azurerm" {
+  features {}
 
-  subscription_id = var.subscription_id
-  client_id       = var.client_id
-  client_secret   = var.secret_id
-  tenant_id       = var.tenant_id
+  subscription_id = "${var.subscription_id}"
+  client_id       = "${var.client_id}"
+  client_secret   = "${var.secret_id}"
+  tenant_id       = "${var.tenant_id}"
 }
 
 resource "azure_resource_group" "rg" {
-  name     = var.resource_group
-  location = var.locations["location1"]
+  name     = "${var.resource_group}"
+  location = "${var.locations["location1"]}
 
   tags = {
     environment = "Dev"
@@ -37,11 +38,11 @@ resource "azurerm_virtual_network" "vnet" {
 
   subnet {
     name           = "subnet1"
-    address_prefix = var.subnets[0]
+    address_prefix = "${var.subnets[0]}"
   }
   subent {
     name           = "subnet2"
-    address_prefix = var.subnets[1]
+    address_prefix = "${var.subnets[1]}"
   }
 
   tags = {
@@ -51,7 +52,7 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_public_ip" "public_ip" {
-  name                = var.public_ip
+  name                = "${var.public_ip}"
   location            = "${azurerm_resource_group.rg.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
 
@@ -86,13 +87,13 @@ resource "azurerm_managed_disk" "disk" {
 }
 
 # Create a terraform backend storage account to store remotely and share tfstate file.
-terraform {
+/*terraform {
   backend "azurerm" {
     storage_account_name = "storage125"
     container_name       = "terraform"
     key                  = "Data.terraform.tfstate"
   }
-}
+}*/
 
 # Export access key to the storage account to give access for terraform to create the container in it.
 // export ARM_ACCESS_KEY=XXXXXXYYYYYY
