@@ -29,8 +29,8 @@ resource "azure_resource_group" "rg" {
 
 resource "azurerm_virtual_network" "vnet" {
   name                = "TF-VirtualNetwork1"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = "${azurerm_resource_group.rg.location}"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
   address_space       = ["10.0.0.0/16"]
   dns_server          = ["10.0.0.4", "10.0.0.5"]
 
@@ -52,8 +52,8 @@ resource "azurerm_virtual_network" "vnet" {
 
 resource "azurerm_public_ip" "public_ip" {
   name                = var.public_ip
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = "${azurerm_resource_group.rg.location}"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
 
   tags = {
     environment = "Dev"
@@ -62,8 +62,8 @@ resource "azurerm_public_ip" "public_ip" {
 
 resource "azurerm_storage_account" "my-storage" {
   name                     = "storage125"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
+  resource_group_name      = "${azurerm_resource_group.rg.name}"
+  location                 = "${azurerm_resource_group.rg.location}"
   account_tier             = "Standard"
   account_replication_type = "GRS"
 
@@ -74,8 +74,8 @@ resource "azurerm_storage_account" "my-storage" {
 
 resource "azurerm_managed_disk" "disk" {
   name                 = "managed_disk"
-  resource_group_name  = azurerm_resource_group.rg.name
-  location             = azurerm_resource_group.rg.location
+  resource_group_name  = "${azurerm_resource_group.rg.name}"
+  location             = "${azurerm_resource_group.rg.location}"
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
   disk_size_gb         = "4"
