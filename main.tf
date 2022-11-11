@@ -86,13 +86,13 @@ resource "azurerm_managed_disk" "disk" {
 }
 
 # Create a terraform backend storage account to store remotely and share tfstate file.
-/*terraform {
+terraform {
   backend "azurerm" {
     storage_account_name = "storage125"
     container_name       = "terraform"
     key                  = "Data.terraform.tfstate"
   }
-}*/
+}
 
 # Export access key to the storage account to give access for terraform to create the container in it.
 // export ARM_ACCESS_KEY=XXXXXXYYYYYY
